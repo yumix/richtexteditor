@@ -33,9 +33,9 @@
             <MenuItem mnemonicParsing="false" text="Undo" />
             <MenuItem mnemonicParsing="false" text="Redo" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cut" />
-            <MenuItem mnemonicParsing="false" text="Copy" />
-            <MenuItem mnemonicParsing="false" text="Paste" />
+            <MenuItem mnemonicParsing="false" onAction="#handleCut" text="Cut" />
+            <MenuItem mnemonicParsing="false" onAction="#handleCopy" text="Copy" />
+            <MenuItem mnemonicParsing="false" onAction="#handlePaste" text="Paste" />
             <MenuItem mnemonicParsing="false" text="Delete" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Select All" />

@@ -2,6 +2,7 @@ package net.yumix.richtexteditor;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -11,7 +12,9 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.web.HTMLEditor;
+import javafx.scene.web.HTMLEditorSkin;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
@@ -24,7 +27,7 @@ public class RichTextEditorController implements Initializable {
     
     @FXML
     public void handleNew(ActionEvent event) {
-        htmlEditor.setHtmlText(initialHtmlText);
+        htmlEditor.setHtmlText(null);
     }
     
     @FXML
@@ -71,11 +74,31 @@ public class RichTextEditorController implements Initializable {
         Platform.exit();
     }
     
-    private String initialHtmlText;
+    private void fireButtonEvent(String buttonName) throws Exception {
+        Field field = HTMLEditorSkin.class.getDeclaredField(buttonName);
+        field.setAccessible(true);
+        Button button = (Button) field.get(htmlEditor.getSkin());
+        button.fireEvent(new ActionEvent());
+    }
+    
+    @FXML
+    public void handleCut(ActionEvent event) throws Exception {
+        fireButtonEvent("cutButton");
+    }
+    
+    @FXML
+    public void handleCopy(ActionEvent event) throws Exception {
+        fireButtonEvent("copyButton");
+    }
+    
+    @FXML
+    public void handlePaste(ActionEvent event) throws Exception {
+        fireButtonEvent("pasteButton");
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle bundle) {
-        initialHtmlText = htmlEditor.getHtmlText();
+        
     }
 
 }
